@@ -69,62 +69,37 @@
       font-size: 1rem;
       font-weight: bold;
       opacity: 0; /* Start hidden */
+      transition: transform 0.5s ease-out;
     }
 
-    /* Invisible circle for movement */
-    .invisible-circle {
-      position: absolute;
-      width: 200px; /* Radius of movement circle */
-      height: 200px; /* Radius of movement circle */
-      border-radius: 50%;
-      opacity: 0; /* Invisible */
+    /* Bubbles in their final positions */
+    .bubble {
+      opacity: 0; /* Start hidden */
     }
 
     /* Animations */
-    @keyframes growCircle {
-      0% {
-        width: 0;
-        height: 0;
-        opacity: 1;
-      }
-      50% {
-        width: 50px; /* Medium size before explosion */
-        height: 50px; /* Medium size before explosion */
-        opacity: 1;
-      }
-      100% {
-        width: 0;
-        height: 0;
-        opacity: 0;
-      }
-    }
-
-    @keyframes explode {
-      0% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-
-    @keyframes rotateBubbles {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
     @keyframes growBubbles {
       0% {
-        width: 50px; /* Starting size */
-        height: 50px; /* Starting size */
+        width: 50px; /* Start small */
+        height: 50px; /* Start small */
+        opacity: 1; /* Fade in */
+      }
+      50% {
+        opacity: 1; /* Fully visible */
       }
       100% {
         width: 3in; /* Final size */
         height: 3in; /* Final size */
+        opacity: 1; /* Fully visible */
+      }
+    }
+
+    @keyframes moveBubbles {
+      0% {
+        transform: translate(0, 0); /* Start in original position */
+      }
+      100% {
+        transform: translate(calc(300px * var(--i)), calc(100px * var(--i))); /* Adjust as necessary */
       }
     }
 
@@ -150,15 +125,13 @@
 
   <!-- Animated Circle Container -->
   <div class="circle-container">
-    <div class="circle main-circle"></div> <!-- Main growing circle -->
-    <div class="invisible-circle"></div> <!-- Invisible circle for movement -->
     <!-- 6 Bubbles -->
-    <div class="circle bubble" id="bubble1"></div>
-    <div class="circle bubble" id="bubble2"></div>
-    <div class="circle bubble" id="bubble3"></div>
-    <div class="circle bubble" id="bubble4"></div>
-    <div class="circle bubble" id="bubble5"></div>
-    <div class="circle bubble" id="bubble6"></div>
+    <div class="circle bubble" id="bubble1" style="--i: 0;"></div>
+    <div class="circle bubble" id="bubble2" style="--i: 1;"></div>
+    <div class="circle bubble" id="bubble3" style="--i: 2;"></div>
+    <div class="circle bubble" id="bubble4" style="--i: 3;"></div>
+    <div class="circle bubble" id="bubble5" style="--i: 4;"></div>
+    <div class="circle bubble" id="bubble6" style="--i: 5;"></div>
   </div>
 
   <!-- Footer Instruction -->
@@ -168,52 +141,22 @@
 
   <script>
     function startAnimation() {
-      const mainCircle = document.querySelector('.main-circle');
       const bubbles = document.querySelectorAll('.bubble');
-      const invisibleCircle = document.querySelector('.invisible-circle');
 
-      // Step 1: Show the growing circle
-      mainCircle.style.animation = 'growCircle 3s ease-out 1';
+      // Step 1: Grow the bubbles and display text
+      bubbles.forEach((bubble, index) => {
+        bubble.style.animation = 'growBubbles 2s ease-out forwards';
+        bubble.style.opacity = '1'; // Fade in
+        bubble.textContent = `Bubble ${index + 1}`; // Add text
+      });
 
-      // Step 2: Explosion effect (disappear)
+      // Step 2: Move bubbles apart after growing
       setTimeout(() => {
-        mainCircle.style.animation = 'explode 0.5s ease-out 1';
-      }, 3000);
-
-      // Step 3: Delay before moving the bubbles
-      setTimeout(() => {
-        invisibleCircle.style.opacity = '1'; // Make invisible circle visible
-
-        // Position bubbles around invisible circle
-        const radius = 200; // Radius of the invisible circle
-        const angleIncrement = (2 * Math.PI) / bubbles.length; // Calculate angle increment for distribution
-
         bubbles.forEach((bubble, index) => {
-          const angle = index * angleIncrement; // Calculate angle for each bubble
-          const x = radius * Math.cos(angle); // Calculate X position
-          const y = radius * Math.sin(angle); // Calculate Y position
-
-          bubble.style.transform = `translate(${x}px, ${y}px)`; // Move to calculated position
-          bubble.style.opacity = '1'; // Fade in
-          bubble.style.animation = 'rotateBubbles 10s linear infinite'; // Rotate animation
+          bubble.style.setProperty('--i', index); // Update the index for positioning
+          bubble.style.animation = 'moveBubbles 2s ease-out forwards'; // Move each bubble
         });
-      }, 3500); // After explosion effect
-
-      // Step 4: Grow bubbles and add text after movement
-      setTimeout(() => {
-        const texts = [
-          "Start",
-          "Open Preso/PDF",
-          "Play Video",
-          "Interactive Demo",
-          "Ask for Help",
-          "More Info"
-        ];
-        bubbles.forEach((bubble, index) => {
-          bubble.textContent = texts[index]; // Add text to each bubble
-          bubble.style.animation = 'growBubbles 2s ease-out forwards'; // Grow the bubbles
-        });
-      }, 13500); // After bubbles finish moving
+      }, 2000); // After growing animation
 
       // Loop the animation every 3 minutes
       setTimeout(startAnimation, 180000); // Restart after 3 minutes
