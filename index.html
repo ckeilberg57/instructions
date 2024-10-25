@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Demo Instructions</title>
   <style>
-    /* Reset margins and padding */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* Full-screen kiosk layout */
     body {
       width: 1080px;
       height: 1920px;
@@ -23,16 +21,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      text-align: center;
+      overflow: hidden;
     }
 
-    /* Plain image styling */
+    /* Image styling */
     img {
       height: 1.5in;
       margin-top: 20px;
     }
 
-    /* Softer and inviting title styling */
+    /* Title directly beneath the image */
     h1 {
       font-size: 2.8rem;
       text-transform: uppercase;
@@ -44,53 +42,111 @@
       color: #0ebec7;
     }
 
-    /* List styling for instructions */
-    ul {
-      list-style: none;
-      margin-top: 30px;
-      width: 80%;
-      line-height: 2;
+    /* Circle container styles */
+    .circle-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin-top: 50px;
     }
 
-    li {
-      font-size: 1.8rem;
-      margin-bottom: 25px;
+    .circle {
+      position: absolute;
+      width: 80px;
+      height: 80px;
       background-color: #0ebec7;
       color: white;
-      padding: 20px;
-      border-radius: 10px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      font-size: 1rem;
+      opacity: 0;
+      animation: explode 3s ease-in-out infinite;
+      animation-delay: 0s;
     }
 
-    /* Footer text */
-    .footer-text {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 40px;
-      letter-spacing: 1px;
-      padding: 10px;
-      background-color: rgba(255, 0, 0, 0.8);
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    /* Animating explosion of circles from the center */
+    @keyframes explode {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .circle:nth-child(1) {
+      animation-delay: 0.5s;
+      animation-name: moveTopLeft;
+    }
+
+    .circle:nth-child(2) {
+      animation-delay: 1s;
+      animation-name: moveTopRight;
+    }
+
+    .circle:nth-child(3) {
+      animation-delay: 1.5s;
+      animation-name: moveBottomLeft;
+    }
+
+    .circle:nth-child(4) {
+      animation-delay: 2s;
+      animation-name: moveBottomRight;
+    }
+
+    .circle:nth-child(5) {
+      animation-delay: 2.5s;
+      animation-name: moveTopCenter;
+    }
+
+    @keyframes moveTopLeft {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-150px, -150px); }
+    }
+
+    @keyframes moveTopRight {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(150px, -150px); }
+    }
+
+    @keyframes moveBottomLeft {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-150px, 150px); }
+    }
+
+    @keyframes moveBottomRight {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(150px, 150px); }
+    }
+
+    @keyframes moveTopCenter {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(0, -180px); }
     }
   </style>
 </head>
 <body>
-  <!-- Plain Logo Image -->
+  <!-- Logo Image -->
   <img src="pexipLogo.png" alt="Demo Logo" />
 
   <!-- Inviting Header Title -->
   <h1>Instructions to use the Interactive Demo screen</h1>
 
-  <!-- Instructions List -->
-  <ul>
-    <li>Press a button to start your journey.</li>
-    <li>Open Preso/PDF will open documentation.</li>
-    <li>Play Video will open a video showing the workflow.</li>
-    <li>Interactive Demo will open an actual Pexip video session.</li>
-    <li>If you would like assistance, please ask.</li>
-  </ul>
+  <!-- Animated Circle Container -->
+  <div class="circle-container">
+    <div class="circle">Start</div>
+    <div class="circle">Open Preso/PDF</div>
+    <div class="circle">Play Video</div>
+    <div class="circle">Interactive Demo</div>
+    <div class="circle">Ask for Help</div>
+  </div>
 
   <!-- Footer Instruction -->
   <div class="footer-text">
