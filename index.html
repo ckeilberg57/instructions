@@ -45,18 +45,18 @@
       border-bottom: 2px solid #0ebec7;
     }
 
-    /* Circle container for layout and animation */
+    /* Circle container */
     .circle-container {
       position: relative;
       width: 1080px;
       height: 800px;
     }
 
-    /* Circle styling */
+    /* Base Circle Styling */
     .circle {
       position: absolute;
-      width: 100px;
-      height: 100px;
+      width: 50px;
+      height: 50px;
       background-color: #0ebec7;
       border-radius: 50%;
       display: flex;
@@ -67,54 +67,85 @@
       opacity: 0;
     }
 
-    /* Circle Animations */
+    /* Large circle in the beginning */
+    .main-circle {
+      width: 0;
+      height: 0;
+      background-color: #0ebec7;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+    }
+
+    /* Animations */
+    @keyframes growAndExplode {
+      0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      50% {
+        width: 300px;
+        height: 300px;
+        opacity: 1;
+      }
+      100% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+      }
+    }
+
     @keyframes moveToPosition {
       0% {
-        transform: scale(0) translate(540px, 400px); /* Center start */
+        transform: translate(540px, 400px) scale(0);
         opacity: 0;
       }
       50% {
         opacity: 1;
       }
       100% {
-        transform: scale(1) translate(var(--x), var(--y)); /* Target position */
+        transform: translate(var(--x), var(--y)) scale(1);
         opacity: 1;
       }
     }
 
-    /* Individual circle positions */
+    /* Circle positions */
     .circle:nth-child(1) {
       --x: -300px;
       --y: -300px;
-      animation: moveToPosition 3s ease-out 1;
-      animation-delay: 1s;
+      animation: moveToPosition 10s ease-out 1;
+      animation-delay: 3s;
     }
 
     .circle:nth-child(2) {
       --x: 300px;
       --y: -300px;
-      animation: moveToPosition 3s ease-out 1;
-      animation-delay: 2s;
+      animation: moveToPosition 10s ease-out 1;
+      animation-delay: 3.5s;
     }
 
     .circle:nth-child(3) {
       --x: -300px;
       --y: 300px;
-      animation: moveToPosition 3s ease-out 1;
-      animation-delay: 3s;
+      animation: moveToPosition 10s ease-out 1;
+      animation-delay: 4s;
     }
 
     .circle:nth-child(4) {
       --x: 300px;
       --y: 300px;
-      animation: moveToPosition 3s ease-out 1;
-      animation-delay: 4s;
+      animation: moveToPosition 10s ease-out 1;
+      animation-delay: 4.5s;
     }
 
     .circle:nth-child(5) {
       --x: 0px;
       --y: 400px;
-      animation: moveToPosition 3s ease-out 1;
+      animation: moveToPosition 10s ease-out 1;
       animation-delay: 5s;
     }
 
@@ -140,6 +171,7 @@
 
   <!-- Animated Circle Container -->
   <div class="circle-container">
+    <div class="main-circle"></div> <!-- Main growing circle -->
     <div class="circle">Start</div>
     <div class="circle">Open Preso/PDF</div>
     <div class="circle">Play Video</div>
@@ -153,15 +185,27 @@
   </div>
 
   <script>
-    // Restart animation every 3 minutes (180,000 milliseconds)
-    setInterval(() => {
+    // Function to trigger animation reset
+    function startAnimation() {
+      const mainCircle = document.querySelector('.main-circle');
       const circles = document.querySelectorAll('.circle');
+
+      // Start the main circle animation
+      mainCircle.style.animation = 'growAndExplode 3s ease-out 1';
+
+      // Reset the smaller circles' animation
       circles.forEach(circle => {
         circle.style.animation = 'none'; // Reset animation
-        void circle.offsetWidth; // Trigger reflow to restart animation
+        void circle.offsetWidth; // Trigger reflow
         circle.style.animation = ''; // Reapply animation
       });
-    }, 180000); // 3 minutes
+    }
+
+    // Initial animation start
+    startAnimation();
+
+    // Loop the animation every 3 minutes
+    setInterval(startAnimation, 180000); // 3 minutes
   </script>
 </body>
 </html>
