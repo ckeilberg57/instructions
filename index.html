@@ -22,7 +22,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-evenly;
+      justify-content: center; /* Center items vertically */
       overflow: hidden;
       text-align: center;
     }
@@ -50,6 +50,10 @@
       position: relative;
       width: 1080px;
       height: 800px;
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      flex-direction: column; /* Stack vertically */
     }
 
     /* Base Circle Styling */
@@ -64,7 +68,7 @@
       justify-content: center;
       font-size: 1rem;
       font-weight: bold;
-      opacity: 0;
+      opacity: 0; /* Start hidden */
     }
 
     /* Animations */
@@ -149,11 +153,11 @@
   <!-- Animated Circle Container -->
   <div class="circle-container">
     <div class="circle main-circle"></div> <!-- Main growing circle -->
-    <div class="circle">Start</div>
-    <div class="circle">Open Preso/PDF</div>
-    <div class="circle">Play Video</div>
-    <div class="circle">Interactive Demo</div>
-    <div class="circle">Ask for Help</div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
   </div>
 
   <!-- Footer Instruction -->
@@ -182,6 +186,20 @@
           circle.style.animationDelay = `${index * 2}s`;
         });
       }, 3000); // After the main circle animation
+
+      // Delay to show text after movement
+      setTimeout(() => {
+        const texts = [
+          "Start",
+          "Open Preso/PDF",
+          "Play Video",
+          "Interactive Demo",
+          "Ask for Help"
+        ];
+        circles.forEach((circle, index) => {
+          circle.textContent = texts[index]; // Add text to each circle
+        });
+      }, 13000); // After circles have finished moving
     }
 
     // Initial animation start
@@ -204,6 +222,7 @@
         circle.style.animation = 'none'; // Reset animation
         void circle.offsetWidth; // Trigger reflow
         circle.style.animation = ''; // Reapply animation
+        circle.textContent = ''; // Clear text
       });
       startAnimation();
     }, 180000); // 3 minutes
