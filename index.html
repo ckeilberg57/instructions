@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Demo Instructions</title>
   <style>
+    /* Reset styling */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    /* Full-screen layout for the kiosk */
     body {
       width: 1080px;
       height: 1920px;
@@ -20,8 +22,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-evenly;
       overflow: hidden;
+      text-align: center;
     }
 
     /* Image styling */
@@ -30,7 +33,7 @@
       margin-top: 20px;
     }
 
-    /* Title directly beneath the image */
+    /* Title directly below the image */
     h1 {
       font-size: 2.8rem;
       text-transform: uppercase;
@@ -38,16 +41,15 @@
       font-weight: 300;
       margin: 20px 0;
       padding: 10px;
-      border-bottom: 2px solid #0ebec7;
       color: #0ebec7;
+      border-bottom: 2px solid #0ebec7;
     }
 
-    /* Circle container styles */
+    /* Circle container to hold the animated circles */
     .circle-container {
       position: relative;
       width: 300px;
       height: 300px;
-      margin-top: 50px;
     }
 
     .circle {
@@ -55,57 +57,31 @@
       width: 80px;
       height: 80px;
       background-color: #0ebec7;
-      color: white;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
       font-size: 1rem;
-      opacity: 0;
-      animation: explode 3s ease-in-out infinite;
-      animation-delay: 0s;
+      font-weight: bold;
+      opacity: 0; /* Start hidden */
     }
 
-    /* Animating explosion of circles from the center */
-    @keyframes explode {
+    /* Animation setup for all circles */
+    @keyframes appearAndExplode {
       0% {
-        transform: translate(0, 0);
+        transform: translate(0, 0) scale(0);
         opacity: 0;
       }
-      10% {
+      20% {
         opacity: 1;
+        transform: translate(0, 0) scale(1);
       }
       100% {
         opacity: 1;
       }
     }
 
-    .circle:nth-child(1) {
-      animation-delay: 0.5s;
-      animation-name: moveTopLeft;
-    }
-
-    .circle:nth-child(2) {
-      animation-delay: 1s;
-      animation-name: moveTopRight;
-    }
-
-    .circle:nth-child(3) {
-      animation-delay: 1.5s;
-      animation-name: moveBottomLeft;
-    }
-
-    .circle:nth-child(4) {
-      animation-delay: 2s;
-      animation-name: moveBottomRight;
-    }
-
-    .circle:nth-child(5) {
-      animation-delay: 2.5s;
-      animation-name: moveTopCenter;
-    }
-
+    /* Animating circles moving in different directions */
     @keyframes moveTopLeft {
       0% { transform: translate(0, 0); }
       100% { transform: translate(-150px, -150px); }
@@ -130,6 +106,44 @@
       0% { transform: translate(0, 0); }
       100% { transform: translate(0, -180px); }
     }
+
+    /* Circle-specific animations with delays */
+    .circle:nth-child(1) {
+      animation: appearAndExplode 3s ease-out 1, moveTopLeft 3s ease-out 1;
+      animation-delay: 1s;
+    }
+
+    .circle:nth-child(2) {
+      animation: appearAndExplode 3s ease-out 1, moveTopRight 3s ease-out 1;
+      animation-delay: 2s;
+    }
+
+    .circle:nth-child(3) {
+      animation: appearAndExplode 3s ease-out 1, moveBottomLeft 3s ease-out 1;
+      animation-delay: 3s;
+    }
+
+    .circle:nth-child(4) {
+      animation: appearAndExplode 3s ease-out 1, moveBottomRight 3s ease-out 1;
+      animation-delay: 4s;
+    }
+
+    .circle:nth-child(5) {
+      animation: appearAndExplode 3s ease-out 1, moveTopCenter 3s ease-out 1;
+      animation-delay: 5s;
+    }
+
+    /* Footer instruction */
+    .footer-text {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+      padding: 10px;
+      background-color: rgba(255, 0, 0, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -152,5 +166,17 @@
   <div class="footer-text">
     At any time, please press the red X to start over.
   </div>
+
+  <script>
+    // Restart the animation every 3 minutes (180,000 milliseconds)
+    setInterval(() => {
+      const circles = document.querySelectorAll('.circle');
+      circles.forEach((circle) => {
+        circle.style.animation = 'none'; // Reset animation
+        void circle.offsetWidth; // Trigger reflow
+        circle.style.animation = ''; // Reapply animation
+      });
+    }, 180000); // 3 minutes in milliseconds
+  </script>
 </body>
 </html>
