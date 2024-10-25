@@ -24,7 +24,6 @@
             align-items: center;
             justify-content: center; /* Center items vertically */
             overflow: hidden; /* Prevent scrollbars */
-            position: relative; /* For positioning bubbles */
         }
 
         /* Image styling */
@@ -44,18 +43,6 @@
             color: #0ebec7;
             border-bottom: 2px solid #0ebec7;
             text-align: center; /* Center text */
-        }
-
-        /* Circle container for the bubbles */
-        .circle-container {
-            position: relative;
-            width: 600px; /* Width of the circle container */
-            height: 600px; /* Height of the circle container */
-            display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            margin-top: 30px; /* Space above */
-            overflow: hidden; /* Hide overflowing bubbles */
         }
 
         /* Bubble styling */
@@ -86,6 +73,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             text-align: center; /* Center footer text */
+            position: absolute; /* Absolute positioning */
+            bottom: 10px; /* Position it towards the bottom */
         }
     </style>
 </head>
@@ -96,8 +85,8 @@
     <!-- Inviting Header Title -->
     <h1>Instructions to use the Interactive Demo screen</h1>
 
-    <!-- Animated Circle Container -->
-    <div class="circle-container" id="circleContainer">
+    <!-- Animated Bubbles -->
+    <div id="bubbleContainer" style="position: relative; height: 50vh; width: 100%;">
         <!-- Bubbles -->
         <div class="bubble" id="bubble1">Text 1</div>
         <div class="bubble" id="bubble2">Text 2</div>
@@ -136,12 +125,12 @@
             // Move all bubbles into position
             function moveBubbles() {
                 const positions = []; // Array to store final positions of bubbles
-                const radius = 350; // Adjusted radius for circle to avoid overlap
+                const radius = 200; // Adjusted radius for circle to avoid overlap
 
                 bubbles.forEach((bubble, i) => {
                     const angle = angleIncrement * i; // Calculate angle for each bubble
-                    const x = radius * Math.cos(angle) - (216 / 2); // Centering bubble
-                    const y = radius * Math.sin(angle) - (216 / 2); // Centering bubble
+                    const x = radius * Math.cos(angle) + window.innerWidth / 2 - (3 * 25.4 / 2); // Centering bubble
+                    const y = radius * Math.sin(angle) + window.innerHeight / 2; // Position in lower half of screen
                     positions.push({ x, y }); // Store the position
                 });
 
