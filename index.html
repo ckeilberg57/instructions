@@ -1,165 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Demo Instructions</title>
-  <style>
-    /* Reset styling */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Demo Instructions</title>
+    <style>
+        /* Reset styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Full-screen layout for the kiosk */
-    body {
-      width: 1080px;
-      height: 1920px;
-      background-color: #0a2136;
-      color: white;
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center; /* Center items vertically */
-      overflow: hidden;
-      text-align: center;
-    }
+        /* Full-screen layout for the kiosk */
+        body {
+            width: 1080px;
+            height: 1920px;
+            background-color: #0a2136;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center items vertically */
+            overflow: hidden;
+            text-align: center;
+        }
 
-    /* Image styling */
-    img {
-      height: 1.5in;
-      margin-top: 20px;
-    }
+        /* Image styling */
+        img {
+            height: 1.5in;
+            margin-top: 20px;
+        }
 
-    /* Title directly below the image */
-    h1 {
-      font-size: 2.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-weight: 300;
-      margin: 20px 0;
-      padding: 10px;
-      color: #0ebec7;
-      border-bottom: 2px solid #0ebec7;
-    }
+        /* Title directly below the image */
+        h1 {
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+            margin: 20px 0;
+            padding: 10px;
+            color: #0ebec7;
+            border-bottom: 2px solid #0ebec7;
+        }
 
-    /* Circle container */
-    .circle-container {
-      position: relative;
-      width: 600px; /* Width of the circle container */
-      height: 600px; /* Height of the circle container */
-      display: flex;
-      justify-content: center; /* Center horizontally */
-      align-items: center; /* Center vertically */
-      margin-top: 30px; /* Space above */
-    }
+        /* Circle container for the bubbles */
+        .circle-container {
+            position: relative;
+            width: 600px; /* Width of the circle container */
+            height: 600px; /* Height of the circle container */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            margin-top: 30px; /* Space above */
+        }
 
-    /* Base Circle Styling */
-    .bubble {
-      position: absolute;
-      width: 0; /* Start as tiny */
-      height: 0; /* Start as tiny */
-      background-color: #0ebec7;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      font-weight: bold;
-      opacity: 0; /* Start hidden */
-      transition: transform 0.5s ease-out;
-      color: white; /* Text color */
-    }
+        /* Bubble styling */
+        .bubble {
+            position: absolute;
+            width: 1in; /* Initial small size */
+            height: 1in; /* Initial small size */
+            background-color: #0ebec7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            opacity: 0; /* Start hidden */
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            color: white; /* Text color */
+        }
 
-    /* Animations */
-    @keyframes growBubbles {
-      0% {
-        width: 0; /* Start small */
-        height: 0; /* Start small */
-        opacity: 1; /* Fade in */
-      }
-      50% {
-        opacity: 1; /* Fully visible */
-      }
-      100% {
-        width: 3in; /* Final size */
-        height: 3in; /* Final size */
-        opacity: 1; /* Fully visible */
-      }
-    }
-
-    @keyframes moveBubbles {
-      0% {
-        transform: translate(0, 0); /* Start in original position */
-      }
-      100% {
-        transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)); /* Final resting position */
-      }
-    }
-
-    /* Footer instruction */
-    .footer-text {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 40px;
-      letter-spacing: 1px;
-      padding: 10px;
-      background-color: rgba(255, 0, 0, 0.8);
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    }
-  </style>
+        /* Footer instruction */
+        .footer-text {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            padding: 10px;
+            background-color: rgba(255, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 <body>
-  <!-- Logo Image -->
-  <img src="logo.png" alt="Demo Logo" />
+    <!-- Logo Image -->
+    <img src="logo.png" alt="Demo Logo" />
 
-  <!-- Inviting Header Title -->
-  <h1>Instructions to use the Interactive Demo screen</h1>
+    <!-- Inviting Header Title -->
+    <h1>Instructions to use the Interactive Demo screen</h1>
 
-  <!-- Animated Circle Container -->
-  <div class="circle-container">
-    <!-- 6 Bubbles -->
-    <div class="bubble" id="bubble1" style="--x: 0; --y: 0;"></div>
-    <div class="bubble" id="bubble2" style="--x: 100; --y: 0;"></div>
-    <div class="bubble" id="bubble3" style="--x: 70; --y: 70;"></div>
-    <div class="bubble" id="bubble4" style="--x: 0; --y: 100;"></div>
-    <div class="bubble" id="bubble5" style="--x: -70; --y: 70;"></div>
-    <div class="bubble" id="bubble6" style="--x: -100; --y: 0;"></div>
-  </div>
+    <!-- Animated Circle Container -->
+    <div class="circle-container" id="circleContainer">
+        <!-- Bubbles -->
+        <div class="bubble" id="bubble1">Text 1</div>
+        <div class="bubble" id="bubble2">Text 2</div>
+        <div class="bubble" id="bubble3">Text 3</div>
+        <div class="bubble" id="bubble4">Text 4</div>
+        <div class="bubble" id="bubble5">Text 5</div>
+        <div class="bubble" id="bubble6">Text 6</div>
+    </div>
 
-  <!-- Footer Instruction -->
-  <div class="footer-text">
-    At any time, please press the red X to start over.
-  </div>
+    <!-- Footer Instruction -->
+    <div class="footer-text">
+        At any time, please press the red X to start over.
+    </div>
 
-  <script>
-    function startAnimation() {
-      const bubbles = document.querySelectorAll('.bubble');
+    <script>
+        const circleContainer = document.getElementById('circleContainer');
+        const bubbles = document.querySelectorAll('.bubble');
 
-      // Step 1: Grow the bubbles
-      bubbles.forEach((bubble) => {
-        bubble.style.animation = 'growBubbles 2s ease-out forwards';
-        bubble.style.opacity = '1'; // Fade in
-      });
+        function startAnimation() {
+            // Step 1: Show and animate the first bubble
+            let angle = 0; // Start angle for the first bubble
+            let index = 0; // Bubble index
+            const totalBubbles = bubbles.length;
 
-      // Step 2: Move bubbles apart after growing
-      setTimeout(() => {
-        bubbles.forEach((bubble, index) => {
-          bubble.style.setProperty('--x', index % 2 === 0 ? (index - 3) * 100 : (index - 2) * 100);
-          bubble.style.setProperty('--y', index < 3 ? 100 : -100);
-          bubble.style.animation = 'moveBubbles 2s ease-out forwards'; // Move each bubble
-        });
-      }, 2000); // After growing animation
+            const interval = setInterval(() => {
+                if (index < totalBubbles) {
+                    // Show the next bubble
+                    bubbles[index].style.opacity = 1;
+                    bubbles[index].style.transition = 'transform 0.5s ease-out';
+                    bubbles[index].style.transform = `translate(${(Math.cos(angle) * 300)}px, ${(Math.sin(angle) * 300)}px)`;
+                    index++;
+                    angle += (2 * Math.PI) / totalBubbles; // Increment angle for circular movement
+                } else {
+                    // When all bubbles are shown, grow them
+                    bubbles.forEach(bubble => {
+                        bubble.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+                        bubble.style.transform = 'scale(3)'; // Grow to 3in
+                    });
 
-      // Loop the animation every 3 minutes
-      setTimeout(startAnimation, 180000); // Restart after 3 minutes
-    }
+                    // Stop the interval after growth
+                    clearInterval(interval);
 
-    // Initial animation start
-    startAnimation();
-  </script>
+                    // Set a timeout to reset the bubbles after 2 minutes
+                    setTimeout(() => {
+                        resetBubbles();
+                    }, 120000); // Reset after 2 minutes
+                }
+            }, 500); // Add new bubble every 0.5 seconds
+        }
+
+        function resetBubbles() {
+            bubbles.forEach(bubble => {
+                bubble.style.opacity = 0; // Hide all bubbles
+                bubble.style.transform = 'scale(1)'; // Reset size
+            });
+            startAnimation(); // Restart the animation
+        }
+
+        // Initial animation start
+        startAnimation();
+    </script>
 </body>
 </html>
