@@ -118,30 +118,38 @@
                     index++;
                     setTimeout(showBubble, 500); // Show the next bubble after 0.5 seconds
                 } else {
-                    moveBubbles(); // Move all bubbles after they are all shown
+                    // Start the explosion and movement after showing all bubbles
+                    explodeAndMoveBubbles();
                 }
             }
 
-            // Move all bubbles into position
-            function moveBubbles() {
+            // Start the explosion and move the bubbles
+            function explodeAndMoveBubbles() {
+                // Initial position of bubbles (center of the screen)
+                bubbles.forEach(bubble => {
+                    bubble.style.opacity = 1; // Ensure they are visible at start
+                    bubble.style.transform = 'scale(1)'; // Start with normal size
+                });
+
+                // Move to final positions
+                const radius = 200; // Radius for final positioning
                 const positions = []; // Array to store final positions of bubbles
-                const radius = 200; // Adjusted radius for circle to avoid overlap
 
                 bubbles.forEach((bubble, i) => {
                     const angle = angleIncrement * i; // Calculate angle for each bubble
                     const x = radius * Math.cos(angle) + window.innerWidth / 2 - (3 * 25.4 / 2); // Centering bubble
-                    const y = radius * Math.sin(angle) + window.innerHeight / 2; // Position in lower half of screen
+                    const y = radius * Math.sin(angle) + (window.innerHeight / 2 + 100); // Position in lower half of screen
                     positions.push({ x, y }); // Store the position
                 });
 
-                // Move bubbles to their final positions
+                // Set scale and transition to their final positions
                 positions.forEach((pos, i) => {
                     const bubble = bubbles[i];
                     bubble.style.transition = 'transform 1s ease-out'; // Animate the movement
-                    bubble.style.transform = `translate(${pos.x}px, ${pos.y}px)`; // Move the bubble to position
+                    bubble.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(3)`; // Move the bubble to position and scale it
                 });
 
-                // After all bubbles are in position, display text
+                // After all bubbles reach their final positions, display text
                 setTimeout(displayText, 1000); // Wait for the bubbles to settle before displaying text
             }
 
@@ -159,7 +167,7 @@
             function resetBubbles() {
                 bubbles.forEach(bubble => {
                     bubble.style.opacity = 0; // Hide all bubbles
-                    bubble.style.transform = 'translate(0, 0)'; // Reset position
+                    bubble.style.transform = 'translate(0, 0) scale(1)'; // Reset position and size
                 });
                 startAnimation(); // Restart the animation
             }
