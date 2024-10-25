@@ -48,16 +48,16 @@
     /* Circle container */
     .circle-container {
       position: relative;
-      width: 1080px;
-      height: 800px;
+      width: 600px; /* Width of the circle container */
+      height: 600px; /* Height of the circle container */
       display: flex;
       justify-content: center; /* Center horizontally */
       align-items: center; /* Center vertically */
-      flex-direction: column; /* Stack vertically */
+      margin-top: 30px; /* Space above */
     }
 
     /* Base Circle Styling */
-    .circle {
+    .bubble {
       position: absolute;
       width: 0; /* Start as tiny */
       height: 0; /* Start as tiny */
@@ -70,18 +70,14 @@
       font-weight: bold;
       opacity: 0; /* Start hidden */
       transition: transform 0.5s ease-out;
-    }
-
-    /* Bubbles in their final positions */
-    .bubble {
-      opacity: 0; /* Start hidden */
+      color: white; /* Text color */
     }
 
     /* Animations */
     @keyframes growBubbles {
       0% {
-        width: 50px; /* Start small */
-        height: 50px; /* Start small */
+        width: 0; /* Start small */
+        height: 0; /* Start small */
         opacity: 1; /* Fade in */
       }
       50% {
@@ -99,7 +95,7 @@
         transform: translate(0, 0); /* Start in original position */
       }
       100% {
-        transform: translate(calc(300px * var(--i)), calc(100px * var(--i))); /* Adjust as necessary */
+        transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)); /* Final resting position */
       }
     }
 
@@ -126,12 +122,12 @@
   <!-- Animated Circle Container -->
   <div class="circle-container">
     <!-- 6 Bubbles -->
-    <div class="circle bubble" id="bubble1" style="--i: 0;"></div>
-    <div class="circle bubble" id="bubble2" style="--i: 1;"></div>
-    <div class="circle bubble" id="bubble3" style="--i: 2;"></div>
-    <div class="circle bubble" id="bubble4" style="--i: 3;"></div>
-    <div class="circle bubble" id="bubble5" style="--i: 4;"></div>
-    <div class="circle bubble" id="bubble6" style="--i: 5;"></div>
+    <div class="bubble" id="bubble1" style="--x: 0; --y: 0;"></div>
+    <div class="bubble" id="bubble2" style="--x: 100; --y: 0;"></div>
+    <div class="bubble" id="bubble3" style="--x: 70; --y: 70;"></div>
+    <div class="bubble" id="bubble4" style="--x: 0; --y: 100;"></div>
+    <div class="bubble" id="bubble5" style="--x: -70; --y: 70;"></div>
+    <div class="bubble" id="bubble6" style="--x: -100; --y: 0;"></div>
   </div>
 
   <!-- Footer Instruction -->
@@ -143,17 +139,17 @@
     function startAnimation() {
       const bubbles = document.querySelectorAll('.bubble');
 
-      // Step 1: Grow the bubbles and display text
-      bubbles.forEach((bubble, index) => {
+      // Step 1: Grow the bubbles
+      bubbles.forEach((bubble) => {
         bubble.style.animation = 'growBubbles 2s ease-out forwards';
         bubble.style.opacity = '1'; // Fade in
-        bubble.textContent = `Bubble ${index + 1}`; // Add text
       });
 
       // Step 2: Move bubbles apart after growing
       setTimeout(() => {
         bubbles.forEach((bubble, index) => {
-          bubble.style.setProperty('--i', index); // Update the index for positioning
+          bubble.style.setProperty('--x', index % 2 === 0 ? (index - 3) * 100 : (index - 2) * 100);
+          bubble.style.setProperty('--y', index < 3 ? 100 : -100);
           bubble.style.animation = 'moveBubbles 2s ease-out forwards'; // Move each bubble
         });
       }, 2000); // After growing animation
