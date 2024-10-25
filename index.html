@@ -45,17 +45,18 @@
       border-bottom: 2px solid #0ebec7;
     }
 
-    /* Circle container to hold the animated circles */
+    /* Circle container for layout and animation */
     .circle-container {
       position: relative;
-      width: 300px;
-      height: 300px;
+      width: 1080px;
+      height: 800px;
     }
 
+    /* Circle styling */
     .circle {
       position: absolute;
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       background-color: #0ebec7;
       border-radius: 50%;
       display: flex;
@@ -63,73 +64,57 @@
       justify-content: center;
       font-size: 1rem;
       font-weight: bold;
-      opacity: 0; /* Start hidden */
+      opacity: 0;
     }
 
-    /* Animation setup for all circles */
-    @keyframes appearAndExplode {
+    /* Circle Animations */
+    @keyframes moveToPosition {
       0% {
-        transform: translate(0, 0) scale(0);
+        transform: scale(0) translate(540px, 400px); /* Center start */
         opacity: 0;
       }
-      20% {
+      50% {
         opacity: 1;
-        transform: translate(0, 0) scale(1);
       }
       100% {
+        transform: scale(1) translate(var(--x), var(--y)); /* Target position */
         opacity: 1;
       }
     }
 
-    /* Animating circles moving in different directions */
-    @keyframes moveTopLeft {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-150px, -150px); }
-    }
-
-    @keyframes moveTopRight {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(150px, -150px); }
-    }
-
-    @keyframes moveBottomLeft {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-150px, 150px); }
-    }
-
-    @keyframes moveBottomRight {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(150px, 150px); }
-    }
-
-    @keyframes moveTopCenter {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(0, -180px); }
-    }
-
-    /* Circle-specific animations with delays */
+    /* Individual circle positions */
     .circle:nth-child(1) {
-      animation: appearAndExplode 3s ease-out 1, moveTopLeft 3s ease-out 1;
+      --x: -300px;
+      --y: -300px;
+      animation: moveToPosition 3s ease-out 1;
       animation-delay: 1s;
     }
 
     .circle:nth-child(2) {
-      animation: appearAndExplode 3s ease-out 1, moveTopRight 3s ease-out 1;
+      --x: 300px;
+      --y: -300px;
+      animation: moveToPosition 3s ease-out 1;
       animation-delay: 2s;
     }
 
     .circle:nth-child(3) {
-      animation: appearAndExplode 3s ease-out 1, moveBottomLeft 3s ease-out 1;
+      --x: -300px;
+      --y: 300px;
+      animation: moveToPosition 3s ease-out 1;
       animation-delay: 3s;
     }
 
     .circle:nth-child(4) {
-      animation: appearAndExplode 3s ease-out 1, moveBottomRight 3s ease-out 1;
+      --x: 300px;
+      --y: 300px;
+      animation: moveToPosition 3s ease-out 1;
       animation-delay: 4s;
     }
 
     .circle:nth-child(5) {
-      animation: appearAndExplode 3s ease-out 1, moveTopCenter 3s ease-out 1;
+      --x: 0px;
+      --y: 400px;
+      animation: moveToPosition 3s ease-out 1;
       animation-delay: 5s;
     }
 
@@ -168,15 +153,15 @@
   </div>
 
   <script>
-    // Restart the animation every 3 minutes (180,000 milliseconds)
+    // Restart animation every 3 minutes (180,000 milliseconds)
     setInterval(() => {
       const circles = document.querySelectorAll('.circle');
-      circles.forEach((circle) => {
+      circles.forEach(circle => {
         circle.style.animation = 'none'; // Reset animation
-        void circle.offsetWidth; // Trigger reflow
+        void circle.offsetWidth; // Trigger reflow to restart animation
         circle.style.animation = ''; // Reapply animation
       });
-    }, 180000); // 3 minutes in milliseconds
+    }, 180000); // 3 minutes
   </script>
 </body>
 </html>
