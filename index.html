@@ -55,8 +55,8 @@
     /* Base Circle Styling */
     .circle {
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 0px; /* Start as tiny */
+      height: 0px; /* Start as tiny */
       background-color: #0ebec7;
       border-radius: 50%;
       display: flex;
@@ -67,19 +67,6 @@
       opacity: 0;
     }
 
-    /* Large circle in the beginning */
-    .main-circle {
-      width: 0;
-      height: 0;
-      background-color: #0ebec7;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 1;
-    }
-
     /* Animations */
     @keyframes growAndExplode {
       0% {
@@ -88,8 +75,8 @@
         opacity: 1;
       }
       50% {
-        width: 300px;
-        height: 300px;
+        width: 150px; /* Large size before explosion */
+        height: 150px; /* Large size before explosion */
         opacity: 1;
       }
       100% {
@@ -101,14 +88,14 @@
 
     @keyframes moveToPosition {
       0% {
-        transform: translate(540px, 400px) scale(0);
+        transform: translate(0, 0);
         opacity: 0;
       }
       50% {
         opacity: 1;
       }
       100% {
-        transform: translate(var(--x), var(--y)) scale(1);
+        transform: translate(var(--x), var(--y));
         opacity: 1;
       }
     }
@@ -117,36 +104,26 @@
     .circle:nth-child(1) {
       --x: -300px;
       --y: -300px;
-      animation: moveToPosition 10s ease-out 1;
-      animation-delay: 3s;
     }
 
     .circle:nth-child(2) {
       --x: 300px;
       --y: -300px;
-      animation: moveToPosition 10s ease-out 1;
-      animation-delay: 3.5s;
     }
 
     .circle:nth-child(3) {
       --x: -300px;
       --y: 300px;
-      animation: moveToPosition 10s ease-out 1;
-      animation-delay: 4s;
     }
 
     .circle:nth-child(4) {
       --x: 300px;
       --y: 300px;
-      animation: moveToPosition 10s ease-out 1;
-      animation-delay: 4.5s;
     }
 
     .circle:nth-child(5) {
       --x: 0px;
       --y: 400px;
-      animation: moveToPosition 10s ease-out 1;
-      animation-delay: 5s;
     }
 
     /* Footer instruction */
@@ -171,7 +148,7 @@
 
   <!-- Animated Circle Container -->
   <div class="circle-container">
-    <div class="main-circle"></div> <!-- Main growing circle -->
+    <div class="circle main-circle"></div> <!-- Main growing circle -->
     <div class="circle">Start</div>
     <div class="circle">Open Preso/PDF</div>
     <div class="circle">Play Video</div>
@@ -185,27 +162,51 @@
   </div>
 
   <script>
-    // Function to trigger animation reset
     function startAnimation() {
       const mainCircle = document.querySelector('.main-circle');
-      const circles = document.querySelectorAll('.circle');
+      const circles = document.querySelectorAll('.circle:not(.main-circle)');
 
       // Start the main circle animation
       mainCircle.style.animation = 'growAndExplode 3s ease-out 1';
 
-      // Reset the smaller circles' animation
-      circles.forEach(circle => {
-        circle.style.animation = 'none'; // Reset animation
-        void circle.offsetWidth; // Trigger reflow
-        circle.style.animation = ''; // Reapply animation
-      });
+      // Delay for explosion effect
+      setTimeout(() => {
+        // Set the sizes of small circles after explosion
+        circles.forEach((circle, index) => {
+          circle.style.width = '50px'; // Medium size
+          circle.style.height = '50px'; // Medium size
+          circle.style.animation = 'moveToPosition 10s ease-out 1';
+          circle.style.transform = 'translate(0, 0)'; // Start at center
+          circle.style.opacity = '1'; // Fade in
+          // Adding a delay for each circle to move
+          circle.style.animationDelay = `${index * 2}s`;
+        });
+      }, 3000); // After the main circle animation
     }
 
     // Initial animation start
     startAnimation();
 
     // Loop the animation every 3 minutes
-    setInterval(startAnimation, 180000); // 3 minutes
+    setInterval(() => {
+      // Reset styles for the next cycle
+      const mainCircle = document.querySelector('.main-circle');
+      mainCircle.style.animation = 'none'; // Reset animation
+      mainCircle.offsetWidth; // Trigger reflow
+      mainCircle.style.animation = ''; // Reapply animation
+
+      const circles = document.querySelectorAll('.circle:not(.main-circle)');
+      circles.forEach(circle => {
+        circle.style.width = '0px'; // Reset size
+        circle.style.height = '0px'; // Reset size
+        circle.style.opacity = '0'; // Fade out
+        circle.style.transform = 'translate(0, 0)'; // Reset position
+        circle.style.animation = 'none'; // Reset animation
+        void circle.offsetWidth; // Trigger reflow
+        circle.style.animation = ''; // Reapply animation
+      });
+      startAnimation();
+    }, 180000); // 3 minutes
   </script>
 </body>
 </html>
