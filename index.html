@@ -26,26 +26,26 @@
       text-align: center;
     }
 
-    /* Styling the 3D image */
+    /* Styling the image to blend with background and pop */
     img {
-      width: auto;
       height: 1.5in;
+      filter: drop-shadow(0 0 15px #0ebec7); /* Glow effect around white text */
       margin-top: 20px;
-      border-radius: 10px;
-      background: linear-gradient(145deg, #ffffff, #e6e6e6);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6), 
-                  inset 0 -4px 8px rgba(255, 255, 255, 0.3);
-      padding: 10px;
     }
 
-    /* Title styling */
+    /* Softer and inviting title styling */
     h1 {
-      font-size: 3rem;
+      font-size: 2.8rem;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
+      font-weight: 300;
+      margin: 20px 0;
+      padding: 10px;
+      border-bottom: 2px solid #0ebec7;
+      color: #0ebec7;
     }
 
-    /* List styling */
+    /* List styling for instructions */
     ul {
       list-style: none;
       margin-top: 30px;
@@ -57,10 +57,11 @@
       font-size: 1.8rem;
       margin-bottom: 25px;
       background-color: #0ebec7;
-      color: #0a2136;
+      color: white;
       padding: 20px;
       border-radius: 10px;
       font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     }
 
     /* Footer text */
@@ -77,10 +78,10 @@
   </style>
 </head>
 <body>
-  <!-- 3D Effect Logo Image -->
+  <!-- Glowing Logo Image -->
   <img src="pexipLogo.png" alt="Demo Logo" />
 
-  <!-- Header Title -->
+  <!-- Inviting Header Title -->
   <h1>Instructions to use the Interactive Demo screen</h1>
 
   <!-- Instructions List -->
