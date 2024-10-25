@@ -141,28 +141,25 @@
                     bubble.style.transform = `translate(${x}px, ${y}px)`; // Move the bubble to position
                 });
 
-                // After all bubbles are in position, enlarge them
-                setTimeout(enlargeBubbles, 1000); // Wait for the bubbles to settle before enlarging
+                // After all bubbles are in position, display text
+                setTimeout(displayText, 1000); // Wait for the bubbles to settle before displaying text
             }
 
-            // Enlarge the bubbles and display text
-            function enlargeBubbles() {
+            // Display text in the bubbles
+            function displayText() {
                 bubbles.forEach((bubble) => {
-                    bubble.style.transform = 'scale(3)'; // Grow to 3in
+                    bubble.style.opacity = 1; // Ensure all bubbles are visible
                 });
 
-                // Display text after the bubbles grow
-                setTimeout(() => {
-                    // Allow to stay in position for 2 minutes
-                    setTimeout(resetBubbles, animationDuration); // Start the cycle over after 2 minutes
-                }, 2000); // Wait 2 seconds before allowing the cycle to restart
+                // Allow to stay in position for 2 minutes
+                setTimeout(resetBubbles, animationDuration); // Start the cycle over after 2 minutes
             }
 
             // Reset bubbles for the next cycle
             function resetBubbles() {
                 bubbles.forEach(bubble => {
                     bubble.style.opacity = 0; // Hide all bubbles
-                    bubble.style.transform = 'scale(1) translate(0, 0)'; // Reset size and position
+                    bubble.style.transform = 'translate(0, 0)'; // Reset position
                 });
                 startAnimation(); // Restart the animation
             }
