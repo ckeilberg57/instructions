@@ -59,14 +59,14 @@
         /* Bubble styling */
         .bubble {
             position: absolute;
-            width: 3in; /* Updated size */
-            height: 3in; /* Updated size */
+            width: 3in; /* Bubble size */
+            height: 3in; /* Bubble size */
             background-color: #0ebec7;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem; /* Updated font size for better visibility */
+            font-size: 1.5rem; /* Font size for bubble text */
             font-weight: bold;
             opacity: 0; /* Start hidden */
             transition: transform 1s ease-out, opacity 0.5s ease-out;
@@ -133,11 +133,12 @@
             // Move all bubbles into position
             function moveBubbles() {
                 const positions = []; // Array to store final positions of bubbles
-                const radius = 200; // Radius for circle
+                const radius = 250; // Adjusted radius for circle to avoid overlap
+
                 bubbles.forEach((bubble, i) => {
                     const angle = angleIncrement * i; // Calculate angle for each bubble
-                    const x = radius * Math.cos(angle);
-                    const y = radius * Math.sin(angle);
+                    const x = radius * Math.cos(angle) - (216 / 2); // Centering bubble
+                    const y = radius * Math.sin(angle) - (216 / 2); // Centering bubble
                     positions.push({ x, y }); // Store the position
                 });
 
