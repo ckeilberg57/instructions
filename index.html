@@ -32,11 +32,18 @@
             padding: 25px; /* Increased padding inside instructions */
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Shadow effect */
             max-width: 80%; /* Max width for instructions */
-            margin-top: 20px; /* Space above instructions */
+            margin: 40px 0; /* Margin for spacing above and below */
         }
         .instruction {
-            margin: 20px 0; /* Margin for each instruction */
+            margin: 30px 0; /* Increased margin for each instruction */
             font-size: 2em; /* Increased font size for instructions */
+            text-align: left; /* Align text to the left for better readability */
+        }
+        .instruction img {
+            width: 50px; /* Set a width for the bullet images */
+            height: auto; /* Maintain aspect ratio */
+            vertical-align: middle; /* Align image vertically with text */
+            margin-right: 10px; /* Space between image and text */
         }
         footer {
             margin-top: 30px; /* Margin for footer */
@@ -51,11 +58,26 @@
     <h1>Welcome to the Interactive Monitor!</h1>
     
     <div class="instructions">
-        <div class="instruction"><strong>1.</strong> Approach the monitor and touch the screen to start.</div>
-        <div class="instruction"><strong>2.</strong> Follow the on-screen prompts to navigate through options.</div>
-        <div class="instruction"><strong>3.</strong> Use gestures like swipe and tap for an engaging experience.</div>
-        <div class="instruction"><strong>4.</strong> Explore various features like maps, information, and more!</div>
-        <div class="instruction"><strong>5.</strong> Don’t hesitate to ask for help if needed.</div>
+        <div class="instruction">
+            <img src="icon1.png" alt="Icon 1" />
+            <strong>Approach the monitor and touch the screen to start.</strong>
+        </div>
+        <div class="instruction">
+            <img src="icon2.png" alt="Icon 2" />
+            <strong>Follow the on-screen prompts to navigate through options.</strong>
+        </div>
+        <div class="instruction">
+            <img src="icon3.png" alt="Icon 3" />
+            <strong>Use gestures like swipe and tap for an engaging experience.</strong>
+        </div>
+        <div class="instruction">
+            <img src="icon4.png" alt="Icon 4" />
+            <strong>Explore various features like maps, information, and more!</strong>
+        </div>
+        <div class="instruction">
+            <img src="icon5.png" alt="Icon 5" />
+            <strong>Don’t hesitate to ask for help if needed.</strong>
+        </div>
     </div>
 
     <footer>
