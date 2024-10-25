@@ -112,6 +112,7 @@
     <script>
         const bubbles = document.querySelectorAll('.bubble');
         const totalBubbles = bubbles.length;
+        const animationDuration = 120000; // 2 minutes
 
         function startAnimation() {
             // Step 1: Show and animate the first bubble
@@ -152,8 +153,9 @@
 
                 // Display text after the bubbles grow
                 setTimeout(() => {
-                    resetBubbles(); // Start the cycle over
-                }, 2000); // Wait 2 seconds before resetting
+                    // Stay in place for 2 minutes
+                    setTimeout(resetBubbles, animationDuration); // Start the cycle over after 2 minutes
+                }, 2000); // Wait 2 seconds before allowing the cycle to restart
             }
 
             // Initial call to show the first bubble
