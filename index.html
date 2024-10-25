@@ -108,13 +108,12 @@
       }
     }
 
-    @keyframes moveBubbles {
+    @keyframes rotateBubbles {
       0% {
-        transform: translate(0, 0);
-        opacity: 0;
+        transform: rotate(0deg);
       }
       100% {
-        opacity: 1;
+        transform: rotate(360deg);
       }
     }
 
@@ -175,7 +174,7 @@
 
       // Step 1: Show the growing circle
       mainCircle.style.animation = 'growCircle 3s ease-out 1';
-      
+
       // Step 2: Explosion effect (disappear)
       setTimeout(() => {
         mainCircle.style.animation = 'explode 0.5s ease-out 1';
@@ -195,8 +194,8 @@
           const y = radius * Math.sin(angle); // Calculate Y position
 
           bubble.style.transform = `translate(${x}px, ${y}px)`; // Move to calculated position
-          bubble.style.animation = 'moveBubbles 10s ease-out 1'; // Move animation
           bubble.style.opacity = '1'; // Fade in
+          bubble.style.animation = 'rotateBubbles 10s linear infinite'; // Rotate animation
         });
       }, 3500); // After explosion effect
 
