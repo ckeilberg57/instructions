@@ -144,7 +144,7 @@
 </head>
 <body>
   <!-- Logo Image -->
-  <img src="pexipLogo.png" alt="Demo Logo" />
+  <img src="logo.png" alt="Demo Logo" />
 
   <!-- Inviting Header Title -->
   <h1>Instructions to use the Interactive Demo screen</h1>
@@ -153,11 +153,13 @@
   <div class="circle-container">
     <div class="circle main-circle"></div> <!-- Main growing circle -->
     <div class="invisible-circle"></div> <!-- Invisible circle for movement -->
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
+    <!-- 6 Bubbles -->
+    <div class="circle bubble" id="bubble1"></div>
+    <div class="circle bubble" id="bubble2"></div>
+    <div class="circle bubble" id="bubble3"></div>
+    <div class="circle bubble" id="bubble4"></div>
+    <div class="circle bubble" id="bubble5"></div>
+    <div class="circle bubble" id="bubble6"></div>
   </div>
 
   <!-- Footer Instruction -->
@@ -168,7 +170,7 @@
   <script>
     function startAnimation() {
       const mainCircle = document.querySelector('.main-circle');
-      const circles = document.querySelectorAll('.circle:not(.main-circle)');
+      const bubbles = document.querySelectorAll('.bubble');
       const invisibleCircle = document.querySelector('.invisible-circle');
 
       // Step 1: Show the growing circle
@@ -184,16 +186,17 @@
         invisibleCircle.style.opacity = '1'; // Make invisible circle visible
 
         // Position bubbles around invisible circle
-        circles.forEach((circle, index) => {
-          const angle = (index * 60) * (Math.PI / 180); // Distribute circles evenly in a circle
-          const radius = 200; // Radius of the invisible circle
+        const radius = 200; // Radius of the invisible circle
+        const angleIncrement = (2 * Math.PI) / bubbles.length; // Calculate angle increment for distribution
+
+        bubbles.forEach((bubble, index) => {
+          const angle = index * angleIncrement; // Calculate angle for each bubble
           const x = radius * Math.cos(angle); // Calculate X position
           const y = radius * Math.sin(angle); // Calculate Y position
 
-          circle.style.transform = `translate(${x}px, ${y}px)`; // Move to calculated position
-          circle.style.animation = 'moveBubbles 10s ease-out 1';
-          circle.style.opacity = '1'; // Fade in
-          circle.style.animationDelay = `${index * 2}s`; // Delay for each circle to move
+          bubble.style.transform = `translate(${x}px, ${y}px)`; // Move to calculated position
+          bubble.style.animation = 'moveBubbles 10s ease-out 1'; // Move animation
+          bubble.style.opacity = '1'; // Fade in
         });
       }, 3500); // After explosion effect
 
@@ -207,9 +210,9 @@
           "Ask for Help",
           "More Info"
         ];
-        circles.forEach((circle, index) => {
-          circle.textContent = texts[index]; // Add text to each circle
-          circle.style.animation = 'growBubbles 2s ease-out forwards'; // Grow the bubbles
+        bubbles.forEach((bubble, index) => {
+          bubble.textContent = texts[index]; // Add text to each bubble
+          bubble.style.animation = 'growBubbles 2s ease-out forwards'; // Grow the bubbles
         });
       }, 13500); // After bubbles finish moving
 
