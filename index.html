@@ -59,8 +59,8 @@
     /* Base Circle Styling */
     .circle {
       position: absolute;
-      width: 0px; /* Start as tiny */
-      height: 0px; /* Start as tiny */
+      width: 0; /* Start as tiny */
+      height: 0; /* Start as tiny */
       background-color: #0ebec7;
       border-radius: 50%;
       display: flex;
@@ -71,8 +71,17 @@
       opacity: 0; /* Start hidden */
     }
 
+    /* Invisible circle for movement */
+    .invisible-circle {
+      position: absolute;
+      width: 200px; /* Radius of movement circle */
+      height: 200px; /* Radius of movement circle */
+      border-radius: 50%;
+      opacity: 0; /* Invisible */
+    }
+
     /* Animations */
-    @keyframes growAndExplode {
+    @keyframes growCircle {
       0% {
         width: 0;
         height: 0;
@@ -90,44 +99,34 @@
       }
     }
 
-    @keyframes moveToPosition {
+    @keyframes explode {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes moveBubbles {
       0% {
         transform: translate(0, 0);
         opacity: 0;
       }
-      50% {
+      100% {
         opacity: 1;
+      }
+    }
+
+    @keyframes growBubbles {
+      0% {
+        width: 50px; /* Starting size */
+        height: 50px; /* Starting size */
       }
       100% {
-        transform: translate(var(--x), var(--y));
-        opacity: 1;
+        width: 3in; /* Final size */
+        height: 3in; /* Final size */
       }
-    }
-
-    /* Circle positions */
-    .circle:nth-child(1) {
-      --x: -250px;
-      --y: -250px;
-    }
-
-    .circle:nth-child(2) {
-      --x: 250px;
-      --y: -250px;
-    }
-
-    .circle:nth-child(3) {
-      --x: -250px;
-      --y: 250px;
-    }
-
-    .circle:nth-child(4) {
-      --x: 250px;
-      --y: 250px;
-    }
-
-    .circle:nth-child(5) {
-      --x: 0px;
-      --y: 400px;
     }
 
     /* Footer instruction */
@@ -145,7 +144,7 @@
 </head>
 <body>
   <!-- Logo Image -->
-  <img src="logo.png" alt="Demo Logo" />
+  <img src="pexipLogo.png" alt="Demo Logo" />
 
   <!-- Inviting Header Title -->
   <h1>Instructions to use the Interactive Demo screen</h1>
@@ -153,6 +152,7 @@
   <!-- Animated Circle Container -->
   <div class="circle-container">
     <div class="circle main-circle"></div> <!-- Main growing circle -->
+    <div class="invisible-circle"></div> <!-- Invisible circle for movement -->
     <div class="circle"></div>
     <div class="circle"></div>
     <div class="circle"></div>
@@ -169,67 +169,56 @@
     function startAnimation() {
       const mainCircle = document.querySelector('.main-circle');
       const circles = document.querySelectorAll('.circle:not(.main-circle)');
+      const invisibleCircle = document.querySelector('.invisible-circle');
 
-      // Start the main circle animation
-      mainCircle.style.animation = 'growAndExplode 3s ease-out 1';
-
-      // Delay for explosion effect
+      // Step 1: Show the growing circle
+      mainCircle.style.animation = 'growCircle 3s ease-out 1';
+      
+      // Step 2: Explosion effect (disappear)
       setTimeout(() => {
-        // Expand and position the small circles after explosion
+        mainCircle.style.animation = 'explode 0.5s ease-out 1';
+      }, 3000);
+
+      // Step 3: Delay before moving the bubbles
+      setTimeout(() => {
+        invisibleCircle.style.opacity = '1'; // Make invisible circle visible
+
+        // Position bubbles around invisible circle
         circles.forEach((circle, index) => {
-          const angle = (index * 72) * (Math.PI / 180); // Distribute circles evenly in a circle
-          const radius = 200; // Radius of the circle to position the bubbles
+          const angle = (index * 60) * (Math.PI / 180); // Distribute circles evenly in a circle
+          const radius = 200; // Radius of the invisible circle
           const x = radius * Math.cos(angle); // Calculate X position
           const y = radius * Math.sin(angle); // Calculate Y position
 
-          circle.style.width = '50px'; // Set medium size
-          circle.style.height = '50px'; // Set medium size
           circle.style.transform = `translate(${x}px, ${y}px)`; // Move to calculated position
-          circle.style.animation = 'moveToPosition 10s ease-out 1';
+          circle.style.animation = 'moveBubbles 10s ease-out 1';
           circle.style.opacity = '1'; // Fade in
           circle.style.animationDelay = `${index * 2}s`; // Delay for each circle to move
         });
-      }, 3000); // After the main circle animation
+      }, 3500); // After explosion effect
 
-      // Delay to show text after movement
+      // Step 4: Grow bubbles and add text after movement
       setTimeout(() => {
         const texts = [
           "Start",
           "Open Preso/PDF",
           "Play Video",
           "Interactive Demo",
-          "Ask for Help"
+          "Ask for Help",
+          "More Info"
         ];
         circles.forEach((circle, index) => {
           circle.textContent = texts[index]; // Add text to each circle
+          circle.style.animation = 'growBubbles 2s ease-out forwards'; // Grow the bubbles
         });
-      }, 13000); // After circles have finished moving
+      }, 13500); // After bubbles finish moving
+
+      // Loop the animation every 3 minutes
+      setTimeout(startAnimation, 180000); // Restart after 3 minutes
     }
 
     // Initial animation start
     startAnimation();
-
-    // Loop the animation every 3 minutes
-    setInterval(() => {
-      // Reset styles for the next cycle
-      const mainCircle = document.querySelector('.main-circle');
-      mainCircle.style.animation = 'none'; // Reset animation
-      mainCircle.offsetWidth; // Trigger reflow
-      mainCircle.style.animation = ''; // Reapply animation
-
-      const circles = document.querySelectorAll('.circle:not(.main-circle)');
-      circles.forEach(circle => {
-        circle.style.width = '0px'; // Reset size
-        circle.style.height = '0px'; // Reset size
-        circle.style.opacity = '0'; // Fade out
-        circle.style.transform = 'translate(0, 0)'; // Reset position
-        circle.style.animation = 'none'; // Reset animation
-        void circle.offsetWidth; // Trigger reflow
-        circle.style.animation = ''; // Reapply animation
-        circle.textContent = ''; // Clear text
-      });
-      startAnimation();
-    }, 180000); // 3 minutes
   </script>
 </body>
 </html>
