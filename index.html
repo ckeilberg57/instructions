@@ -69,7 +69,7 @@
             font-size: 1rem;
             font-weight: bold;
             opacity: 0; /* Start hidden */
-            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            transition: transform 1s ease-out, opacity 0.5s ease-out;
             color: white; /* Text color */
         }
 
@@ -153,21 +153,22 @@
 
                 // Display text after the bubbles grow
                 setTimeout(() => {
-                    // Stay in place for 2 minutes
+                    // Allow to stay in position for 2 minutes
                     setTimeout(resetBubbles, animationDuration); // Start the cycle over after 2 minutes
                 }, 2000); // Wait 2 seconds before allowing the cycle to restart
             }
 
+            // Reset bubbles for the next cycle
+            function resetBubbles() {
+                bubbles.forEach(bubble => {
+                    bubble.style.opacity = 0; // Hide all bubbles
+                    bubble.style.transform = 'scale(1) translate(0, 0)'; // Reset size and position
+                });
+                startAnimation(); // Restart the animation
+            }
+
             // Initial call to show the first bubble
             showBubble();
-        }
-
-        function resetBubbles() {
-            bubbles.forEach(bubble => {
-                bubble.style.opacity = 0; // Hide all bubbles
-                bubble.style.transform = 'scale(1) translate(0, 0)'; // Reset size and position
-            });
-            startAnimation(); // Restart the animation
         }
 
         // Initial animation start
