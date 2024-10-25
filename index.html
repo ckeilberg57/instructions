@@ -5,57 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Demo Instructions</title>
   <style>
-    body {
+    /* Reset margins and padding */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Full-screen kiosk layout */
+    body {
       width: 1080px;
       height: 1920px;
       background-color: #0a2136;
       color: white;
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: start;
-      overflow: hidden;
+      justify-content: space-around;
+      text-align: center;
     }
 
+    /* Styling the image */
     img {
       width: 5in;
       height: 3in;
-      margin-top: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
     }
 
+    /* Title styling */
     h1 {
-      margin: 10px 0;
-      text-align: center;
+      font-size: 3rem;
+      margin-top: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
+    /* List styling */
     ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 20px 0;
+      list-style: none;
+      margin-top: 30px;
       width: 80%;
-      line-height: 1.6;
-      text-align: left;
+      line-height: 2;
     }
 
     li {
-      margin-bottom: 15px;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
     }
 
+    /* Footer text */
     .footer-text {
-      margin-top: auto;
-      margin-bottom: 30px;
-      text-align: center;
+      font-size: 2rem;
       font-weight: bold;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+      padding: 10px;
+      background-color: rgba(255, 0, 0, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     }
   </style>
 </head>
 <body>
-  <!-- Placeholder Image -->
+  <!-- Kiosk Image Placeholder -->
   <img src="your-image-path.jpg" alt="Demo Image Placeholder" />
 
-  <!-- Title -->
+  <!-- Header Title -->
   <h1>Instructions for Interactive Demo</h1>
 
   <!-- Instructions List -->
@@ -67,7 +87,7 @@
     <li>If you would like assistance, please ask.</li>
   </ul>
 
-  <!-- Footer Text -->
+  <!-- Footer Instruction -->
   <div class="footer-text">
     At any time, please press the red X to start over.
   </div>
