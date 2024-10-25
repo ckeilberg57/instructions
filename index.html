@@ -54,6 +54,7 @@
             justify-content: center; /* Center horizontally */
             align-items: center; /* Center vertically */
             margin-top: 30px; /* Space above */
+            overflow: hidden; /* Hide overflowing bubbles */
         }
 
         /* Bubble styling */
@@ -133,7 +134,7 @@
             // Move all bubbles into position
             function moveBubbles() {
                 const positions = []; // Array to store final positions of bubbles
-                const radius = 250; // Adjusted radius for circle to avoid overlap
+                const radius = 300; // Adjusted radius for circle to avoid overlap
 
                 bubbles.forEach((bubble, i) => {
                     const angle = angleIncrement * i; // Calculate angle for each bubble
