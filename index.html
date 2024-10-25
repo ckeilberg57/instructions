@@ -3,181 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Demo Instructions</title>
+    <title>Interactive Monitor Instructions</title>
     <style>
-        /* Reset styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Full-screen layout for the kiosk */
         body {
-            width: 100vw; /* Full width */
-            height: 100vh; /* Full height */
             background-color: #0a2136;
             color: white;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; /* Center items vertically */
-            overflow: hidden; /* Prevent scrollbars */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
         }
-
-        /* Image styling */
-        img {
-            height: 1.5in;
-            margin-bottom: 20px; /* Space below the image */
-        }
-
-        /* Title directly below the image */
         h1 {
-            font-size: 2.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 300;
-            margin: 20px 0;
-            padding: 10px;
-            color: #0ebec7;
-            border-bottom: 2px solid #0ebec7;
-            text-align: center; /* Center text */
+            margin-top: 20px;
+            font-size: 2.5em;
         }
-
-        /* Bubble styling */
-        .bubble {
-            position: absolute;
-            width: 3in; /* Bubble size */
-            height: 3in; /* Bubble size */
-            background-color: #0ebec7;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem; /* Font size for bubble text */
-            font-weight: bold;
-            opacity: 0; /* Start hidden */
-            transition: transform 1s ease-out, opacity 0.5s ease-out;
-            color: white; /* Text color */
+        img {
+            width: 5in;
+            height: 1.5in;
+            margin-bottom: 20px;
         }
-
-        /* Footer instruction */
-        .footer-text {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-top: 40px; /* Space above footer */
-            letter-spacing: 1px;
-            padding: 10px;
-            background-color: rgba(255, 0, 0, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            text-align: center; /* Center footer text */
-            position: absolute; /* Absolute positioning */
-            bottom: 10px; /* Position it towards the bottom */
+        .instructions {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .instruction {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.8em;
         }
     </style>
 </head>
 <body>
-    <!-- Logo Image -->
-    <img src="logo.png" alt="Demo Logo" />
 
-    <!-- Inviting Header Title -->
-    <h1>Instructions to use the Interactive Demo screen</h1>
+    <img src="path/to/your/image.jpg" alt="Interactive Monitor" />
 
-    <!-- Animated Bubbles -->
-    <div id="bubbleContainer" style="position: relative; height: 50vh; width: 100%;">
-        <!-- Bubbles -->
-        <div class="bubble" id="bubble1">Text 1</div>
-        <div class="bubble" id="bubble2">Text 2</div>
-        <div class="bubble" id="bubble3">Text 3</div>
-        <div class="bubble" id="bubble4">Text 4</div>
-        <div class="bubble" id="bubble5">Text 5</div>
-        <div class="bubble" id="bubble6">Text 6</div>
+    <h1>Welcome to the Interactive Monitor!</h1>
+    
+    <div class="instructions">
+        <div class="instruction"><strong>1.</strong> Approach the monitor and touch the screen to start.</div>
+        <div class="instruction"><strong>2.</strong> Follow the on-screen prompts to navigate through options.</div>
+        <div class="instruction"><strong>3.</strong> Use gestures like swipe and tap for an engaging experience.</div>
+        <div class="instruction"><strong>4.</strong> Explore various features like maps, information, and more!</div>
+        <div class="instruction"><strong>5.</strong> Don’t hesitate to ask for help if needed.</div>
     </div>
 
-    <!-- Footer Instruction -->
-    <div class="footer-text">
-        At any time, please press the red X to start over.
-    </div>
+    <footer>
+        <p>Enjoy your experience!</p>
+    </footer>
 
-    <script>
-        const bubbles = document.querySelectorAll('.bubble');
-        const totalBubbles = bubbles.length;
-        const animationDuration = 120000; // 2 minutes
-
-        function startAnimation() {
-            // Step 1: Show and animate the first bubble
-            let index = 0; // Bubble index
-            const angleIncrement = (2 * Math.PI) / totalBubbles; // Angle increment for the circle
-
-            // Function to show bubbles
-            function showBubble() {
-                if (index < totalBubbles) {
-                    bubbles[index].style.opacity = 1; // Show the next bubble
-                    index++;
-                    setTimeout(showBubble, 500); // Show the next bubble after 0.5 seconds
-                } else {
-                    // Start the explosion and movement after showing all bubbles
-                    explodeAndMoveBubbles();
-                }
-            }
-
-            // Start the explosion and move the bubbles
-            function explodeAndMoveBubbles() {
-                // Initial position of bubbles (center of the screen)
-                bubbles.forEach(bubble => {
-                    bubble.style.opacity = 1; // Ensure they are visible at start
-                    bubble.style.transform = 'scale(1)'; // Start with normal size
-                });
-
-                // Move to final positions
-                const radius = 200; // Radius for final positioning
-                const positions = []; // Array to store final positions of bubbles
-
-                bubbles.forEach((bubble, i) => {
-                    const angle = angleIncrement * i; // Calculate angle for each bubble
-                    const x = radius * Math.cos(angle) + window.innerWidth / 2 - (3 * 25.4 / 2); // Centering bubble
-                    const y = radius * Math.sin(angle) + (window.innerHeight / 2 + 100); // Position in lower half of screen
-                    positions.push({ x, y }); // Store the position
-                });
-
-                // Set scale and transition to their final positions
-                positions.forEach((pos, i) => {
-                    const bubble = bubbles[i];
-                    bubble.style.transition = 'transform 1s ease-out'; // Animate the movement
-                    bubble.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(3)`; // Move the bubble to position and scale it
-                });
-
-                // After all bubbles reach their final positions, display text
-                setTimeout(displayText, 1000); // Wait for the bubbles to settle before displaying text
-            }
-
-            // Display text in the bubbles
-            function displayText() {
-                bubbles.forEach((bubble) => {
-                    bubble.style.opacity = 1; // Ensure all bubbles are visible
-                });
-
-                // Allow to stay in position for 2 minutes
-                setTimeout(resetBubbles, animationDuration); // Start the cycle over after 2 minutes
-            }
-
-            // Reset bubbles for the next cycle
-            function resetBubbles() {
-                bubbles.forEach(bubble => {
-                    bubble.style.opacity = 0; // Hide all bubbles
-                    bubble.style.transform = 'translate(0, 0) scale(1)'; // Reset position and size
-                });
-                startAnimation(); // Restart the animation
-            }
-
-            // Initial call to show the first bubble
-            showBubble();
-        }
-
-        // Initial animation start
-        startAnimation();
-    </script>
 </body>
 </html>
