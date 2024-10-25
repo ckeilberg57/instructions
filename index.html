@@ -79,8 +79,8 @@
         opacity: 1;
       }
       50% {
-        width: 150px; /* Large size before explosion */
-        height: 150px; /* Large size before explosion */
+        width: 50px; /* Medium size before explosion */
+        height: 50px; /* Medium size before explosion */
         opacity: 1;
       }
       100% {
@@ -106,23 +106,23 @@
 
     /* Circle positions */
     .circle:nth-child(1) {
-      --x: -300px;
-      --y: -300px;
+      --x: -250px;
+      --y: -250px;
     }
 
     .circle:nth-child(2) {
-      --x: 300px;
-      --y: -300px;
+      --x: 250px;
+      --y: -250px;
     }
 
     .circle:nth-child(3) {
-      --x: -300px;
-      --y: 300px;
+      --x: -250px;
+      --y: 250px;
     }
 
     .circle:nth-child(4) {
-      --x: 300px;
-      --y: 300px;
+      --x: 250px;
+      --y: 250px;
     }
 
     .circle:nth-child(5) {
@@ -145,7 +145,7 @@
 </head>
 <body>
   <!-- Logo Image -->
-  <img src="pexipLogo.png" alt="Demo Logo" />
+  <img src="logo.png" alt="Demo Logo" />
 
   <!-- Inviting Header Title -->
   <h1>Instructions to use the Interactive Demo screen</h1>
@@ -175,15 +175,19 @@
 
       // Delay for explosion effect
       setTimeout(() => {
-        // Set the sizes of small circles after explosion
+        // Expand and position the small circles after explosion
         circles.forEach((circle, index) => {
-          circle.style.width = '50px'; // Medium size
-          circle.style.height = '50px'; // Medium size
+          const angle = (index * 72) * (Math.PI / 180); // Distribute circles evenly in a circle
+          const radius = 200; // Radius of the circle to position the bubbles
+          const x = radius * Math.cos(angle); // Calculate X position
+          const y = radius * Math.sin(angle); // Calculate Y position
+
+          circle.style.width = '50px'; // Set medium size
+          circle.style.height = '50px'; // Set medium size
+          circle.style.transform = `translate(${x}px, ${y}px)`; // Move to calculated position
           circle.style.animation = 'moveToPosition 10s ease-out 1';
-          circle.style.transform = 'translate(0, 0)'; // Start at center
           circle.style.opacity = '1'; // Fade in
-          // Adding a delay for each circle to move
-          circle.style.animationDelay = `${index * 2}s`;
+          circle.style.animationDelay = `${index * 2}s`; // Delay for each circle to move
         });
       }, 3000); // After the main circle animation
 
