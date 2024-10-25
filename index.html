@@ -132,13 +132,20 @@
 
             // Move all bubbles into position
             function moveBubbles() {
+                const positions = []; // Array to store final positions of bubbles
+                const radius = 200; // Radius for circle
                 bubbles.forEach((bubble, i) => {
                     const angle = angleIncrement * i; // Calculate angle for each bubble
-                    const radius = 150; // Radius for circle
                     const x = radius * Math.cos(angle);
                     const y = radius * Math.sin(angle);
+                    positions.push({ x, y }); // Store the position
+                });
+
+                // Move bubbles to their final positions
+                positions.forEach((pos, i) => {
+                    const bubble = bubbles[i];
                     bubble.style.transition = 'transform 1s ease-out'; // Animate the movement
-                    bubble.style.transform = `translate(${x}px, ${y}px)`; // Move the bubble to position
+                    bubble.style.transform = `translate(${pos.x}px, ${pos.y}px)`; // Move the bubble to position
                 });
 
                 // After all bubbles are in position, display text
