@@ -36,15 +36,17 @@
             margin: 40px 0; /* Margin for spacing above and below */
         }
         .instruction {
-            margin: 30px 0; /* Increased margin for each instruction */
-            font-size: 2em; /* Increased font size for instructions */
-            text-align: left; /* Align text to the left for better readability */
+            display: grid;
+            grid-template-columns: 80px 1fr; /* Image and text side-by-side */
+            align-items: center; /* Align vertically */
+            gap: 10px; /* Space between image and text */
+            margin: 30px 0; /* Spacing between instructions */
+            font-size: 2em; /* Increased font size */
+            text-align: left; /* Align text to the left */
         }
-        .instruction img {
-            width: 80px; /* Set a width for the bullet images */
-            height: auto; /* Maintain aspect ratio */
-            vertical-align: middle; /* Align image vertically with text */
-            margin-right: 10px; /* Space between image and text */
+        .text-content {
+            display: flex;
+            flex-direction: column; /* Stack text lines vertically */
         }
         footer {
             margin-top: 30px; /* Margin for footer */
@@ -67,31 +69,52 @@
     <div class="instructions">
         <div class="instruction">
             <img src="appButton1.png" alt="Icon 1" />
-            <strong>Approach the interactive monitor and touch the screen to start</strong>
+            <div class="text-content">
+                <strong>Approach the interactive monitor and touch the screen to start</strong>
+                <p>This is the second line of instructions, directly under the first.</p>
+            </div>
         </div>
         <div class="instruction">
-            <img src="appButton2.png" alt="Icon 3" />
-            <strong>To open a presentation, press the <span class="highlight">Open Preso</span> or <span class="highlight">Open PDF</span> button</strong>
+            <img src="appButton2.png" alt="Icon 2" />
+            <div class="text-content">
+                <strong>To open a presentation, press the <span class="highlight">Open Preso</span> or <span class="highlight">Open PDF</span> button</strong>
+                <p>This is the second line of this instruction.</p>
+            </div>
         </div>
         <div class="instruction">
-            <img src="appButton3.png" alt="Icon 4" />
-            <strong>To play a video of the feature, press the <span class="highlight">Play Video</span> button</strong>
+            <img src="appButton3.png" alt="Icon 3" />
+            <div class="text-content">
+                <strong>To play a video of the feature, press the <span class="highlight">Play Video</span> button</strong>
+                <p>Additional details or instructions can go here.</p>
+            </div>
         </div>
         <div class="instruction">
-            <img src="appButton4.png" alt="Icon 5" />
-            <strong>Start an interactive demo, press the <span class="highlight">Interactive Demo</span> button</strong>
+            <img src="appButton4.png" alt="Icon 4" />
+            <div class="text-content">
+                <strong>Start an interactive demo, press the <span class="highlight">Interactive Demo</span> button</strong>
+                <p>Helpful hints for using this feature.</p>
+            </div>
         </div>
         <div class="instruction">
-            <img src="appButton5.png" alt="Icon 2" />
-            <strong>Coming Soon - More innovation on the way...</strong>
+            <img src="appButton5.png" alt="Icon 5" />
+            <div class="text-content">
+                <strong>Coming Soon - More innovation on the way...</strong>
+                <p>Stay tuned for new features.</p>
+            </div>
         </div>
         <div class="instruction">
             <img src="appButton7.png" alt="Icon 7" />
-            <strong>Don't hesitate to ask for assistance, we are happy to help</strong>
+            <div class="text-content">
+                <strong>Don't hesitate to ask for assistance, we are happy to help</strong>
+                <p>Our team is ready to assist you anytime.</p>
+            </div>
         </div>
         <div class="instruction">
             <img src="appButton6.png" alt="Icon 6" />
-            <strong>Press the <span class="highlightRed">(X)</span> anytime to bring you back to the beginning</strong>
+            <div class="text-content">
+                <strong>Press the <span class="highlightRed">(X)</span> anytime to bring you back to the beginning</strong>
+                <p>This button resets your session.</p>
+            </div>
         </div>
     </div>
 
